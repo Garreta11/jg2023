@@ -1,8 +1,15 @@
 .header {
-    border: 1px solid #f0f0f0;
+    position: fixed;
+    top: 0;
+    width: 100%;
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    z-index: 1;
 }
 
 .navigation {

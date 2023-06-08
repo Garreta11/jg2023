@@ -10,11 +10,16 @@ const links = [
       label: "About",
       route: "/about"
     },
+    {
+      label: "Lab",
+      route: "/lab"
+    },
 ]
 
 export function Navigation() {
     return(
         <header className={styles.header}>
+            <h1>Jordi Garreta</h1>
             <nav>
                 <ul className={styles.navigation}>
                     {links.map(({label, route}) => {
