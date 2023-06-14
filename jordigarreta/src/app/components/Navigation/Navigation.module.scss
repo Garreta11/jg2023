@@ -1,4 +1,5 @@
 .header {
+    font-family: HelveticaNeue;
     position: fixed;
     top: 0;
     width: 100%;
@@ -9,11 +10,18 @@
     justify-content: space-between;
     align-items: center;
     background-color: transparent;
-    z-index: 1;
+    z-index: 10;
+    color: black;
 }
 
 .navigation {
     display: flex;
     list-style: none;
     gap: 32px;
+}
+
+.title {
+    text-transform: uppercase;
+    cursor: pointer;
+    color: black;
 }

@@ -1,4 +1,10 @@
+@font-face {
+  font-family: HelveticaNeue;
+  src: url("./fonts/HelveticaNeueBlackExt.ttf") format("truetype");
+}
+
 .main {
+  font-family: HelveticaNeue;
   display: flex;
   flex-direction: column;
   justify-content: center;

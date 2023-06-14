@@ -1,13 +1,15 @@
 .footer {
+    font-family: HelveticaNeue;
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 50px;
+    padding: 20px;
     background-color: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1;
+    z-index: 10;
+    color: black;
 
     .footerLinks {
         display: flex;

@@ -17,7 +17,10 @@ export function Footer() {
             <div className={styles.footerLinks}>
                 <Link href="https://www.instagram.com/garreta11/">Instagram</Link>
                 <Link href="https://www.linkedin.com/in/garreta11/">Linkedin</Link>
-                <Link href="mailto:jordigarreta11@gmail.com">E-mail</Link>
+                
+            </div>
+            <div>
+            <Link href="mailto:jordigarreta11@gmail.com">jordigarreta11@gmail.com</Link>
             </div>
             <p>©{year}</p>
         </footer>

@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <h1>Creative Developer</h1>
+      {/* <h1>Creative Developer</h1> */}
 
       <World />
 
