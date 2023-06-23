@@ -1,9 +1,8 @@
 import styles from './World.module.scss'
 import { useRef, Suspense } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { FaceLandmarker, FaceControls, OrbitControls, Stats, PresentationControls, Text } from '@react-three/drei'
-import { useLocation, Switch, Route } from "wouter"
-import { Vector3, DirectionalLight } from 'three'
+import { Canvas } from '@react-three/fiber'
+import { Stats } from '@react-three/drei'
+import { Switch, Route } from "wouter"
 
 import { Home } from '../../scenes/home/Home'
 import { Lab } from '../../scenes/lab/Lab'
@@ -12,20 +11,11 @@ import { About } from '../../scenes/about/About'
 
 const Scene = () => {
   console.log("** SCENES **");
-  const { camera, mouse } = useThree()
-  const vec = new Vector3()
-
-  const dlRef = useRef<DirectionalLight>(null);
-
-  useFrame(() => {
-    // camera.position.lerp(vec.set(mouse.x, mouse.y, camera.position.z), 0.05)
-    // camera.lookAt(0, 0, 0)
-  })
 
   return(
     <>
       <ambientLight intensity={0.1} />
-      <directionalLight castShadow position={[1, 1, 1]} ref={dlRef} />
+      <directionalLight castShadow position={[1, 1, 1]} />
 
       <Switch>
         <Route path="/">
@@ -41,6 +31,8 @@ const Scene = () => {
           <Work />
         </Route>
       </Switch>
+
+      <Stats />
     </>
   )
 }

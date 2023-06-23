@@ -6,7 +6,7 @@ import styles from './Footer.module.scss'
 
 export function Footer() {
 
-    const [year, setYear] = useState<number>();
+    const [year, setYear] = useState();
     useEffect(() => {
         const year = new Date().getFullYear()
         setYear(year);

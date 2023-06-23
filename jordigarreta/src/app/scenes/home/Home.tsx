@@ -2,7 +2,8 @@
 import * as THREE from 'three';
 import styles from './Home.module.scss'
 import { Link, useLocation } from "wouter"
-import { extend } from '@react-three/fiber'
+import { useEffect } from 'react'
+import { extend, useThree, useFrame } from '@react-three/fiber'
 import { Text3D, Html, shaderMaterial, Center } from '@react-three/drei'
 
 const links = [
@@ -48,21 +49,32 @@ extend({ TextShaderMaterial });
 
 export function Home() {
     const [location, setLocation] = useLocation();
+    const { camera, mouse } = useThree()
+    const vec = new THREE.Vector3();
 
+    useEffect(() => {
+      camera.position.set(0, 0, 5);
+    }, [])
+    
     const navigate = (nav: string): void => {
         setLocation(nav);
     };
+
+    useFrame(() => {
+      camera.position.lerp(vec.set(mouse.x, mouse.y, camera.position.z), 0.05)
+      camera.lookAt(0, 0, 0)
+    })
 
     return(
         <>
             <color args={ [ 'white' ] }  attach="background" />
 
-            <Center>
+            {/* <Center>
               <Text3D letterSpacing={-0.06} size={0.5} font="/fonts/HelveticaNeueBlackExt.json">
                 creative developer
                 <meshStandardMaterial color="white" />
               </Text3D>
-            </Center>
+            </Center> */}
 
             <Html
                 wrapperClass={styles.home}
@@ -80,16 +92,6 @@ export function Home() {
                     })}
                 </div>
             </Html>
-
-            {/* <mesh castShadow position={[0, 0, 0]}>
-              <boxGeometry args={[1, 1, 1]} />
-              <meshStandardMaterial />
-            </mesh>
-
-            <mesh receiveShadow position-y={ -0.5 } rotation-x={ -Math.PI * 0.5 } scale={ 10 }>
-              <planeGeometry />
-              <meshStandardMaterial color='greenyellow' />
-            </mesh> */}
         </>
     )
 }

@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/scenes/home/Home.tsx", "src/app/scenes/lab/Lab.tsx", "src/app/layout.tsx", "src/app/page.tsxssrc/app/scenes/work/Work.tsx", "src/app/components/Footer/Footer.tsx", "src/app/components/Navigation/Navigation.tsx", "src/app/components/Wordpress/Wordpress.tsx", "src/app/components/World/World.tsx", "src/app/scenes/about/About.tsx"],
   "exclude": ["node_modules"]
 }
