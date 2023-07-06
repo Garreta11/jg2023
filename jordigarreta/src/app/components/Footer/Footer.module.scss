@@ -1,5 +1,8 @@
+@use '../../animations.scss' as *;
+@use '../../breakpoints.scss' as *;
+
 .footer {
-    font-family: HelveticaNeue;
+    font-family: Manrope-Regular;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -10,10 +13,27 @@
     align-items: center;
     z-index: 10;
     color: black;
+    font-size: 20px;
 
     .footerLinks {
         display: flex;
         gap: 20px;
+
+    }
+
+    .footerMail {
+        display: flex;
+    }
+
+    a {
+        &:hover {
+            animation: tilt-n-move-shaking 0.15s infinite;
+        }
+    }
+
+    @include sm {
+        flex-direction: column;
+        font-size: 15px;
     }
 
 }

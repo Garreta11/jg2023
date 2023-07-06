@@ -3,8 +3,25 @@
   src: url("./fonts/HelveticaNeueBlackExt.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: FA_FWASYDSOAO;
+  src: url("./fonts/FA_FWASYDSOAO.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: KidsHand;
+  src: url("./fonts/KidsHand.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Manrope-Regular;
+  src: url("./fonts/Manrope-Regular.ttf") format("truetype");
+}
+
+$fontwebsite: Manrope-Regular;
+
 .main {
-  font-family: HelveticaNeue;
+  font-family: $fontwebsite;
   display: flex;
   flex-direction: column;
   justify-content: center;

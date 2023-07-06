@@ -1,5 +1,8 @@
+@use '../../animations.scss' as *;
+@use '../../breakpoints.scss' as *;
+
 .header {
-    font-family: HelveticaNeue;
+    font-family: Manrope-Regular;
     position: fixed;
     top: 0;
     width: 100%;
@@ -8,20 +11,35 @@
     margin-bottom: 50px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     background-color: transparent;
     z-index: 10;
     color: black;
+    font-size: 25px;
 }
 
 .navigation {
     display: flex;
     list-style: none;
     gap: 32px;
+
+    li {
+        display: flex;
+        a {
+            &:hover {
+                animation: tilt-n-move-shaking 0.15s infinite;
+            }
+        }
+    }
 }
 
 .title {
-    text-transform: uppercase;
+    // text-transform: uppercase;
     cursor: pointer;
     color: black;
+    font-size: 45px;
+
+    @include sm {
+        font-size: 30px;
+    }
 }

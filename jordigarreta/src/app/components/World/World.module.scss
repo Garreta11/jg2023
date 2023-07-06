@@ -1,6 +1,218 @@
+@use '../../breakpoints.scss' as *;
+@use '../../animations.scss' as *;
+
 .wrapper {
     position: absolute;
     top: 0;
     width: 100vw;
     height: 100vh;
+}
+
+.projectContent {
+    padding: 0px 60px;
+    padding-bottom: 100px;
+    position: absolute;
+    top: 0;
+
+    @include sm {
+        padding: 0px 30px;
+        padding-bottom: 60px;
+    }
+}
+
+.project__info {
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    width: 90vw;
+    height: 0px;
+    background-color: white;
+    color: black;
+    transform: translate(50%, 0px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 30;
+    padding: 0px 40px;
+    border-radius: 13px 13px 0px 0px;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    img, video {
+        width: 100%;
+        height: auto;
+    }
+
+    @include sm {
+        width: 95%;
+    }
+
+}
+
+.project__info__hide {
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    width: 90vw;
+    margin: 0 auto;
+    height: 0px;
+    animation: hide 1s normal forwards ease-in-out;
+    transform: translate(50%, 0px);
+    background-color: white;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 30;
+    padding: 0px 40px;
+    border-radius: 13px 13px 0px 0px;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    img, video {
+        width: 100%;
+        height: auto;
+    }
+
+    @include sm {
+        width: 95%;
+        animation: hideMobile 1s normal forwards ease-in-out;
+    }
+}
+
+.project__info__show {
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    margin: 0 auto;
+    width: 90vw;
+    animation: show 1s normal forwards ease-in-out;
+    transform: translate(50%, 0px);
+    background-color: white;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 30;
+    // padding: 10px 40px;
+    border-radius: 13px 13px 0px 0px;
+    img, video {
+        width: 100%;
+        height: auto;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include sm {
+        width: 95%;
+        animation: showMobile 1s normal forwards ease-in-out;
+    }
+}
+
+.projectTitle {
+    font-size: 80px;
+    position: sticky;
+    top: 10px;
+    mix-blend-mode: difference;
+    color: white;
+    margin-bottom: 50px;
+    @include sm {
+        margin-bottom: 30px;
+        font-size: 30px;
+    }
+}
+
+.projectDescription {
+    font-size: 20px;
+    margin-bottom: 50px;
+    width: 80%;
+    @include sm {
+        width: 100%;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+}
+
+.projectCredits {
+    font-size: 25px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    @include sm {
+        display: block;
+        font-size: 25px;
+        margin-bottom: 30px;
+    }
+}
+
+.projectImages {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.projectLink {
+    font-size: 50px;
+    display: flex;
+    a {
+        &:hover {
+            animation: tilt-n-move-shaking 0.15s infinite;
+        }
+    }
+}
+
+.close {
+    font-size: 50px;
+    position: sticky;
+    top: 10px;
+    left: 30px;
+    cursor: pointer;
+    z-index: 10;
+
+    @include sm {
+        font-size: 30px;
+    }
+}
+
+@keyframes show {
+    from {
+        height: 0px;
+        padding: 0px 40px;
+    }
+    to {
+        height: 90vh;
+        padding: 10px 40px;
+    }
+}
+
+@keyframes hide {
+    from {
+        height: 90vh;
+        padding: 10px 40px;
+    }
+    to {
+        height: 0px;
+        padding: 0px 40px;
+    }
+}
+
+@keyframes showMobile {
+    from {
+        height: 0px;
+        padding: 0px 10px;
+    }
+    to {
+        height: 90vh;
+        padding: 0px 10px;
+    }
+}
+
+@keyframes hideMobile {
+    from {
+        height: 90vh;
+        padding: 0px 10px;
+    }
+    to {
+        height: 0px;
+        padding: 0px 10px;
+    }
 }

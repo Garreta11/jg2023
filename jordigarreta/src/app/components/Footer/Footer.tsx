@@ -15,12 +15,12 @@ export function Footer() {
     return(
         <footer className={styles.footer}>
             <div className={styles.footerLinks}>
-                <Link href="https://www.instagram.com/garreta11/">Instagram</Link>
-                <Link href="https://www.linkedin.com/in/garreta11/">Linkedin</Link>
+                <Link target="_blank" href="https://www.instagram.com/garreta11/">Instagram</Link>
+                <Link target="_blank" href="https://www.linkedin.com/in/garreta11/">Linkedin</Link>
                 
             </div>
-            <div>
-            <Link href="mailto:jordigarreta11@gmail.com">jordigarreta11@gmail.com</Link>
+            <div className={styles.footerMail}>
+                <Link target="_blank" href="mailto:jordigarreta11@gmail.com">jordigarreta11@gmail.com</Link>
             </div>
             <p>©{year}</p>
         </footer>
