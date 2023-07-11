@@ -1,3 +1,5 @@
+@use './typography.scss' as *;
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -85,16 +87,12 @@ body {
   overflow-x: hidden;
   overscroll-behavior: none;
   overflow-y: hidden;
+  font-family: $fontwebsite;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: white;
 }
 
 a {

@@ -2,9 +2,9 @@
 import styles from "./Work.module.scss"
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber'
-import { ScrollControls, useScroll, Text, Html } from '@react-three/drei'
+import { ScrollControls, useScroll, Text, Plane, useTexture, useVideoTexture } from '@react-three/drei'
 import { easing } from 'maath'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 
 
 const GOLDENRATIO = 1.61803398875
@@ -18,7 +18,6 @@ export function Work(props: { handleClickProject: (variable:string) => void; }) 
 
         props.handleClickProject(variable);
         const s = enableScroll;
-        // setEnableScroll(!s);
     }
 
     return(
@@ -93,6 +92,9 @@ const Frame: React.FC<FrameProps> = (props) => {
 
     const [isTextVisible, setIsTextVisible] = useState<string>("none");
     const [hovered, setHovered] = useState<boolean>(false)
+    
+    const texture = useTexture(props.project.acf.video.imatge_preview.url);
+    const aspectratio = props.project.acf.video.imatge_preview.width / props.project.acf.video.imatge_preview.height;
 
     useEffect(() => {
         document.body.style.cursor = hovered ? 'pointer' : 'auto'
@@ -118,9 +120,21 @@ const Frame: React.FC<FrameProps> = (props) => {
     }
     
     return(
-        <group position={[0, GOLDENRATIO, -(props.index + 1) * DISTANCE]} onClick={onTextClick(event, props.project)}>
+        <group position={[0, GOLDENRATIO, -(props.index + 1) * DISTANCE + 10]} onClick={onTextClick(event, props.project)}>
+            
+            {/* <Plane args={[3*aspectratio, 3]} position={[0, 0, -1]} receiveShadow={false}>
+                <meshBasicMaterial map={texture} color="white"/>
+            </Plane> */}
+
+            <Plane args={[3*aspectratio, 3]} position={[0, 0, -1]} receiveShadow={false}>
+                <Suspense fallback={<FallbackMaterial url={props.project.acf.video.imatge_preview.url} />}>
+                    <VideoMaterial url={props.project.acf.video.video.url} />
+                </Suspense>
+            </Plane>
+
             <Text
-                font="./fonts/Manrope-Regular.ttf"
+                // font="./fonts/Manrope-Regular.ttf"
+                font="./fonts/FugueMono.ttf"
                 maxWidth={10}
                 anchorX="center"
                 anchorY="middle"
@@ -132,4 +146,20 @@ const Frame: React.FC<FrameProps> = (props) => {
             </Text>
         </group>
     )
+}
+
+interface VideoMaterialProps {
+    url: string;
+}
+interface FallbackMaterialProps {
+    url: string;
+}
+const VideoMaterial: React.FC<VideoMaterialProps> = ({ url }) => {
+    const texture = useVideoTexture(url)
+    return <meshBasicMaterial map={texture} toneMapped={false} />
+}
+
+const FallbackMaterial: React.FC<FallbackMaterialProps> = ({ url }) => {
+    const texture = useTexture(url)
+    return <meshBasicMaterial map={texture} toneMapped={false} />
 }

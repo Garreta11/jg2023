@@ -23,16 +23,17 @@
 .project__info {
     overflow-y: scroll;
     position: absolute;
-    bottom: 0;
+    top: 100px;
     right: 50%;
-    width: 90vw;
-    height: 0px;
+    width: 0%;
+    height: 80vh;
     background-color: white;
     color: black;
     transform: translate(50%, 0px);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    opacity: 0;
     z-index: 30;
-    padding: 0px 40px;
+    padding: 0px 0px;
     border-radius: 13px 13px 0px 0px;
     &::-webkit-scrollbar {
         display: none;
@@ -51,18 +52,18 @@
 .project__info__hide {
     overflow-y: scroll;
     position: absolute;
-    bottom: 0;
+    top: 100px;
     right: 50%;
-    width: 90vw;
+    height: 80vh;
     margin: 0 auto;
-    height: 0px;
+    height: 80vh;
     animation: hide 1s normal forwards ease-in-out;
     transform: translate(50%, 0px);
     background-color: white;
     color: black;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    opacity: 0;
     z-index: 30;
-    padding: 0px 40px;
+    padding: 0px 0px;
     border-radius: 13px 13px 0px 0px;
     &::-webkit-scrollbar {
         display: none;
@@ -81,17 +82,17 @@
 .project__info__show {
     overflow-y: scroll;
     position: absolute;
-    bottom: 0;
+    top: 100px;
     right: 50%;
     margin: 0 auto;
-    width: 90vw;
+    width: 100vw;
+    height: 80vh;
     animation: show 1s normal forwards ease-in-out;
     transform: translate(50%, 0px);
     background-color: white;
     color: black;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    opacity: 0;
     z-index: 30;
-    // padding: 10px 40px;
     border-radius: 13px 13px 0px 0px;
     img, video {
         width: 100%;
@@ -158,13 +159,17 @@
             animation: tilt-n-move-shaking 0.15s infinite;
         }
     }
+    @include sm {
+        font-size: 30px;
+    }
 }
 
 .close {
+    width: fit-content;
     font-size: 50px;
     position: sticky;
     top: 10px;
-    left: 30px;
+    left: 0px;
     cursor: pointer;
     z-index: 10;
 
@@ -175,23 +180,27 @@
 
 @keyframes show {
     from {
-        height: 0px;
-        padding: 0px 40px;
+        width: 0%;
+        padding: 0px 0px;
+        opacity: 0;
     }
     to {
-        height: 90vh;
+        width: 100wh;
         padding: 10px 40px;
+        opacity: 1;
     }
 }
 
 @keyframes hide {
     from {
-        height: 90vh;
+        width: 100%;
         padding: 10px 40px;
+        opacity: 1;
     }
     to {
-        height: 0px;
-        padding: 0px 40px;
+        width: 0%;
+        padding: 0px 0px;
+        opacity: 0;
     }
 }
 

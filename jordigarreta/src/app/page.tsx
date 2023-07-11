@@ -21,13 +21,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {/* <h1>Creative Developer</h1> */}
-
       <World />
-
-      {/* {posts.map((post) => {
-        return <p key={post.id}>{post.title.rendered}</p>
-      })} */}
     </main>
   )
 }

@@ -1,19 +1,18 @@
 "use client"
 import * as THREE from 'three';
+import styles from "./Lab.module.scss"
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { ScrollControls, Text, Html, useScroll, Plane, useVideoTexture, useTexture, useAspect } from '@react-three/drei'
-import { Vector3, DirectionalLight } from 'three'
-import { useState, useEffect, useRef } from 'react'
-import { easing } from 'maath'
+import { useState, useEffect, useRef, MouseEvent } from 'react'
 
-const DISTANCE = 20
+const DISTANCE = 10
 
 export function Lab() {
 
     return(
         <>
             <color args={ [ 'white' ] }  attach="background" />
-            <ScrollControls damping={0.1} pages={10} distance={1} infinite>
+            <ScrollControls damping={0.9} pages={3} distance={1} horizontal>
                 <Experiments />
             </ScrollControls>
         </>
@@ -24,9 +23,8 @@ const Experiments = ({ q = new THREE.Quaternion(), p = new THREE.Vector3(0, 0, 0
     const [experiments, setExperiments] = useState([]);
     const { camera, mouse } = useThree()
     const scroll = useScroll()
-    const ref = useRef<any>()
+    const ref = useRef(null);
 
-    // console.log(ref);
 
     useEffect(() => {
         async function fetchData() {
@@ -35,104 +33,44 @@ const Experiments = ({ q = new THREE.Quaternion(), p = new THREE.Vector3(0, 0, 0
             )
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setExperiments(data);
             })
         }
         fetchData()
     }, [])
 
-    useFrame((state, dt) => {
-        ref.current.position.set(0, scroll.scroll.current * ref.current.children.length * DISTANCE, 0);
-        easing.damp3(camera.position, p, 0.4, dt)
-        easing.dampQ(camera.quaternion, q, 0.4, dt)
-    })
-
-    const handleMouseEnter = (e:any) => {
-        if (e.object.material.map && e.object.material.map.image instanceof HTMLVideoElement) {
-            // Texture is a video
-            console.log("video ply");
-            e.object.material.map.image.play();
-        }
+    const handlePointerEnter = (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, target: number) => {
+        const targetElement = event.currentTarget;
+        const videoElement: any = targetElement.children;
+        console.log(typeof videoElement);
+        videoElement[0].play();
     }
 
-    const handleMouseLeave = (e:any) => {
-        if (e.object.material.map && e.object.material.map.image instanceof HTMLVideoElement) {
-            // Texture is a video
-            e.object.material.map.image.pause();
-        }
+    const handlePointerLeave = (event: MouseEvent<HTMLDivElement, MouseEvent>, target: number) => {
+        const targetElement = event.currentTarget;
+        const videoElement: any = targetElement.children;
+        videoElement[0].pause();
     }
+
 
     return(
         <group ref={ref}>
-            {experiments.map((experiment:any, index:number) =>{
-                const myArray = experiment.acf.file.url.split(".");
-                const fileFormat = myArray[myArray.length - 1];
-
-                const width = experiment.acf.file.width;
-                const height = experiment.acf.file.height;
-                
-                const scale = 10;
-                
-                const wPlane = width / Math.max(width, height);
-                const hPlane = height / Math.max(width, height);
-                
-
-                return(
-                    <group key={experiment.id}>
-                        <Text color='red' position={[0, -index * DISTANCE, -50]}>
-                            {experiment.title.rendered + " - " + fileFormat}
-                        </Text>
-                        <Plane scale={DISTANCE} args={[wPlane, hPlane]} position={[0, -index * DISTANCE, -50]} onPointerEnter={handleMouseEnter} onPointerLeave={handleMouseLeave}>
-                            <TextureMaterial _url={experiment.acf.file.url}/>
-                        </Plane>
-                    </group>
-                )
-            })}
+            <Html className={styles.labcarousel}>
+                {experiments.map((experiment:any, index:number) =>{
+                    return(
+                        <div
+                            key={experiment.id}
+                            className={styles.imageitem}
+                            onMouseOver={(event) => handlePointerEnter(event, index)}
+                            onMouseLeave={(event) => handlePointerLeave(event, index)}
+                        >
+                            <video src={experiment.acf.file.url} width="100%" height="auto" loop>
+                                <source src={experiment.acf.file.url} type="video/mp4" />
+                            </video>
+                        </div>
+                    )
+                })}
+            </Html>
         </group>
-    )
-}
-
-interface TextureMaterialProps {
-    _url: string;
-}
-
-const TextureMaterial: React.FC<TextureMaterialProps> = ({ _url }) => {
-    const [texture, setTexture] = useState<any>();
-    const textureLoader = new THREE.TextureLoader();
-
-    useEffect(() => {
-        const loadTexture = async () => {
-            const myArray:string[] = _url.split(".");
-            const fileFormat:string = myArray[myArray.length - 1];
-            let loadedTexture:any;
-
-            
-            if (fileFormat === "png") {
-                loadedTexture = textureLoader.load(_url);
-                setTexture(loadedTexture);
-            } else {
-                const video = document.createElement('video');
-                video.src = _url;
-                video.loop = true;
-                video.crossOrigin = 'anonymous';
-
-                const videoTexture = new THREE.VideoTexture(video);
-                videoTexture.minFilter = THREE.LinearFilter;
-                videoTexture.magFilter = THREE.LinearFilter;
-                video.addEventListener('loadeddata', () => {
-                    console.log("video is loaded");
-                    loadedTexture = videoTexture;
-                    setTexture(loadedTexture);
-                })
-
-            }
-        }
-        loadTexture();
-       
-    }, [])
-
-    return(
-        <meshBasicMaterial map={texture}/>
     )
 }

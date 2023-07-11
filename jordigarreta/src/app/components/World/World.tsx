@@ -1,7 +1,7 @@
 import styles from './World.module.scss'
 import { useRef, Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Stats } from '@react-three/drei'
+import { Stats, useProgress, Html } from '@react-three/drei'
 import { Switch, Route } from "wouter"
 import Link from "next/link"
 
@@ -9,8 +9,6 @@ import { Home } from '../../scenes/home/Home'
 import { Lab } from '../../scenes/lab/Lab'
 import { Work } from '../../scenes/work/Work'
 import { About } from '../../scenes/about/About'
-
-import cross from '../../images/cross.svg';
 
 const Scene = (props: { handleClickProject: (variable:string) => void; }) => {
   
@@ -25,7 +23,7 @@ const Scene = (props: { handleClickProject: (variable:string) => void; }) => {
 
       <Switch>
         <Route path="/">
-            <Home />
+          <Home />
         </Route>
         <Route path="/about">
           <About />
@@ -80,13 +78,25 @@ export const World = () => {
     setProjectInfo(styles.project__info__hide);
   }
 
+  function Loader() {
+    const { active, progress, errors, item, loaded, total } = useProgress()
+    return (
+      <Html center style={{backgroundColor: "white", color:"black"}}>
+        <div style={
+          {
+            fontSize: "150px"
+          }}>
+          <h1>{Math.ceil(progress) + "%"}</h1>
+        </div>
+      </Html>
+    )
+  }
+
   return (
     <div className={styles.wrapper}>
 
-      
-
-      <Canvas shadows>
-          <Suspense fallback={null}>
+      <Canvas linear flat>
+          <Suspense fallback={<Loader />}>
               <Scene handleClickProject={handleClickProject}/>
           </Suspense>
       </Canvas>

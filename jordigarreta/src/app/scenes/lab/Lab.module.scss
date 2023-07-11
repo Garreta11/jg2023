@@ -1,0 +1,21 @@
+.labcarousel {
+    // transform: translateY(-50%) !important;
+    transform: translate(-3%,-50%) !important;
+    display: flex;
+    gap: 25vw;
+    align-items: center;
+}
+
+.imageitem {
+    width: calc(110vw / 2);
+    height: auto;
+    opacity: 0.5;
+    transition: all ease 0.3s;
+    filter: grayscale(1);
+
+    &:hover {
+        // width: calc(160px * 2);
+        opacity: 1;
+        filter: grayscale(0);
+    }
+}
